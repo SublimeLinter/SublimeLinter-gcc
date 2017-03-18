@@ -3,7 +3,7 @@ SublimeLinter-contrib-gcc
 
 This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter3) provides an interface to [gcc](https://gcc.gnu.org/).
 It will be used with files that have the C/C++ syntax.
-If you are using [clang](https://clang.llvm.org), you should try [Sublime​Linter-contrib-clang](https://github.com/nirm03/SublimeLinter-clang).
+If you are using [clang](https://clang.llvm.org), you should consider [Sublime​Linter-contrib-clang](https://github.com/nirm03/SublimeLinter-clang).
 
 
 Installation
@@ -27,7 +27,7 @@ Once `gcc` is installed, you must ensure it is in your system PATH so that Subli
 This may not be as straightforward as you think,
 so please read [How linter executables are located](http://sublimelinter.readthedocs.org/en/latest/usage.html#how-linter-executables-are-located) in the documentation.
 
-Once you have installed `gcc` you can proceed to install the SublimeLinter-contrib-gcc plugin if it is not yet installed.
+Once you have installed `gcc` you can proceed to install the `SublimeLinter-contrib-gcc` plugin if it is not yet installed.
 
 
 ## Plugin installation
@@ -43,7 +43,7 @@ To install via Package Control, do the following:
    If that command is not highlighted, use the keyboard or mouse to select it.
    There will be a pause of a few seconds while Package Control fetches the list of available plugins.
 
-0. When the plugin list appears, type `iverilog`. Among the entries you should see `SublimeLinter-contrib-iverilog`.
+0. When the plugin list appears, type `gcc`. Among the entries you should see `SublimeLinter-contrib-gcc`.
    If that entry is not highlighted, use the keyboard or mouse to select it.
 
 
