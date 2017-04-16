@@ -38,12 +38,12 @@ If you want to install from source so you can modify the source code, you probab
 
 To install via Package Control, do the following:
 
-0. Within Sublime Text, bring up the [Command Palette](http://docs.sublimetext.info/en/sublime-text-3/extensibility/command_palette.html) and type `install`.
+1. Within Sublime Text, bring up the [Command Palette](http://docs.sublimetext.info/en/sublime-text-3/extensibility/command_palette.html) and type `install`.
    Among the commands you should see `Package Control: Install Package`.
    If that command is not highlighted, use the keyboard or mouse to select it.
    There will be a pause of a few seconds while Package Control fetches the list of available plugins.
 
-0. When the plugin list appears, type `gcc`. Among the entries you should see `SublimeLinter-contrib-gcc`.
+1. When the plugin list appears, type `gcc`. Among the entries you should see `SublimeLinter-contrib-gcc`.
    If that entry is not highlighted, use the keyboard or mouse to select it.
 
 
@@ -104,11 +104,11 @@ Contributing
 
 If you would like to contribute enhancements or fixes, please do the following:
 
-0. Fork the plugin repository.
-0. Hack on a separate topic branch created from the latest `master`.
-0. Commit and push the topic branch.
-0. Make a pull request.
-0. Be patient.  ;-)
+1. Fork the plugin repository.
+1. Hack on a separate topic branch created from the latest `master`.
+1. Commit and push the topic branch.
+1. Make a pull request.
+1. Be patient.  ;-)
 
 Please note that modifications should follow these coding guidelines:
 
