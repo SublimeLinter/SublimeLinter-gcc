@@ -29,7 +29,7 @@ def get_project_folder():
 
 def apply_template(s):
     mapping = {
-        "project_folder": get_project_folder()
+        'project_folder': get_project_folder(),
     }
     templ = string.Template(s)
     return templ.safe_substitute(mapping)
@@ -38,7 +38,6 @@ def apply_template(s):
 class Gcc(Linter):
     """ Provides an interface to gcc. """
 
-    cmd = None
     executable = 'gcc'
     multiline = False
     syntax = ('c', 'c improved', 'c++', 'c++11')
@@ -47,11 +46,6 @@ class Gcc(Linter):
         r'.*?((?P<error>error)|(?P<warning>warning|note)):\s*'
         r'(?P<message>.+)'
     )
-
-    defaults = {
-        'include_dirs': [],
-        'extra_flags': ""
-    }
 
     base_cmd = (
         '-c '
@@ -68,21 +62,21 @@ class Gcc(Linter):
         based on the 'include_dirs' and 'extra_flags' settings.
         """
 
-        result = self.executable + ' ' + self.base_cmd
         settings = self.get_view_settings()
         include_dirs = settings.get('include_dirs', [])
 
-        result += apply_template( settings.get('extra_flags', '') )
+        cmd = self.executable + ' ' + self.base_cmd
+        cmd += apply_template(settings.get('extra_flags', ''))
 
         if include_dirs:
-            result += apply_template( ''.join([' -I' + shlex.quote(include) for include in include_dirs]) )
+            cmd += apply_template(''.join([' -I' + shlex.quote(include) for include in include_dirs]))
 
-        if persist.get_syntax(self.view) in ['c', 'c improved']:
+        if persist.get_syntax(self.view).lower() in ['c', 'c improved']:
             code_type = 'c'
         else:
             code_type = 'c++'
 
         # to compile code from the standard input
-        result += ' -x {0} -'.format(code_type)
+        cmd += ' -x {0} -'.format(code_type)
 
-        return result
+        return cmd
