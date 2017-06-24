@@ -1,7 +1,7 @@
 SublimeLinter-contrib-gcc
 =========================
 
-This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter3) provides an interface to [gcc](https://gcc.gnu.org/).
+This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter3) provides an interface to [gcc](https://gcc.gnu.org/) or other gcc-like (cross-)compiler.
 It will be used with files that have the C/C++ syntax.
 If you are using [clang](https://clang.llvm.org), you should consider [Sublime​Linter-contrib-clang](https://github.com/nirm03/SublimeLinter-clang).
 
@@ -15,7 +15,7 @@ If SublimeLinter 3 is not installed, please follow the instructions [here](http:
 
 ### Linter installation
 
-Before using this plugin, you must ensure that `gcc` is installed on your system.
+Before using this plugin, you must ensure that `gcc` or other gcc-like (cross-)compiler is installed on your system.
 
 You may install `gcc` with the following method:
 
@@ -57,6 +57,7 @@ In addition to the standard SublimeLinter settings, SublimeLinter-contrib-gcc pr
 
 | Setting | Description |
 | :------ | :---------- |
+| executable | If you are not using `gcc`, you have to set this to your compiler binary. (like `arm-none-eabi-gcc`) |
 | include_dirs | A list of directories to be added to the header search paths (`-I` is not needed). |
 | extra_flags | A string with extra flags to pass to gcc. These should be used carefully, as they may cause linting to fail. |
 
@@ -67,6 +68,7 @@ In project-specific settings, `$project_folder` or `${project_folder}` can be us
     "linters":
     {
         "gcc": {
+            "executable": "gcc",
             "extra_flags": "-Wall -std=c++11 -I${project_folder}/foo",
             "include_dirs": [
                 "${project_folder}/3rdparty/bar/include",
