@@ -38,7 +38,15 @@ def apply_template(s):
 class Gcc(Linter):
     """ Provides an interface to gcc. """
 
-    executable = 'gcc'
+    # We would like to bind "executable" later in cmd(self), but
+    # if "executable" is not found here, this linter won't be activated.
+    # The following if-branch just makes sure an "executable" could be found.
+    if sublime.platform() == 'windows':
+        executable = 'explorer'
+    else:
+        # I guess all non-Windows OS would have "cat" binary in its PATH?
+        executable = 'cat'
+
     multiline = False
     syntax = ('c', 'c improved', 'c++', 'c++11')
     regex = (
@@ -47,7 +55,13 @@ class Gcc(Linter):
         r'(?P<message>.+)'
     )
 
-    base_cmd = (
+    default_settings = {
+        'executable': 'gcc',
+        'extra_flags': '',
+        'include_dirs': [],
+    }
+
+    base_flags = (
         '-c '
         '-fsyntax-only '
         '-Wall '
@@ -56,22 +70,23 @@ class Gcc(Linter):
 
     def cmd(self):
         """
-        Return the command line to execute.
+        Return the command line to be executed.
 
-        We override this method, so we can add extra flags and include paths
-        based on the 'include_dirs' and 'extra_flags' settings.
+        We override this method, so we can change executable, add extra flags
+        and include paths based on settings.
         """
 
         settings = self.get_view_settings()
-        include_dirs = settings.get('include_dirs', [])
+        executable = settings.get('executable', self.default_settings['executable'])
+        include_dirs = settings.get('include_dirs', self.default_settings['include_dirs'])
+        extra_flags = settings.get('extra_flags', self.default_settings['extra_flags'])
 
-        cmd = self.executable + ' ' + self.base_cmd
-        cmd += apply_template(settings.get('extra_flags', ''))
+        cmd = executable + ' ' + self.base_flags + apply_template(extra_flags)
 
         if include_dirs:
             cmd += apply_template(''.join([' -I' + shlex.quote(include) for include in include_dirs]))
 
-        if persist.get_syntax(self.view).lower() in ['c', 'c improved']:
+        if persist.get_syntax(self.view) in ['c', 'c improved']:
             code_type = 'c'
         else:
             code_type = 'c++'
