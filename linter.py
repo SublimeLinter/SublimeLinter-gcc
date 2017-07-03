@@ -42,9 +42,10 @@ class Gcc(Linter):
     # if "executable" is not found here, this linter won't be activated.
     # The following if-branch just makes sure an "executable" could be found.
     if sublime.platform() == 'windows':
-        executable = 'explorer'
+        # Windows OS would have "cmd" (or "explorer") binary in its PATH
+        executable = 'cmd'
     else:
-        # I guess all non-Windows OS would have "cat" binary in its PATH?
+        # A non-Windows OS would have "cat" binary in its PATH?
         executable = 'cat'
 
     multiline = False
