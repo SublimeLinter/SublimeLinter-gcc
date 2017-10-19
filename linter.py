@@ -77,20 +77,20 @@ class Gcc(Linter):
         and include paths based on settings.
         """
 
+        if persist.get_syntax(self.view) in ['c', 'c improved']:
+            code_type = 'c'
+        else:
+            code_type = 'c++'
+
         settings = self.get_view_settings()
-        executable = settings.get('executable', self.default_settings['executable'])
-        include_dirs = settings.get('include_dirs', self.default_settings['include_dirs'])
-        extra_flags = settings.get('extra_flags', self.default_settings['extra_flags'])
+        executable = settings.get(code_type + '_executable', settings.get('executable', self.default_settings['executable']))
+        include_dirs = settings.get(code_type + "_include_dirs", settings.get('include_dirs', self.default_settings['include_dirs']))
+        extra_flags = settings.get(code_type + "_extra_flags", settings.get('extra_flags', self.default_settings['extra_flags']))
 
         cmd = executable + ' ' + self.base_flags + apply_template(extra_flags)
 
         if include_dirs:
             cmd += apply_template(''.join([' -I' + shlex.quote(include) for include in include_dirs]))
-
-        if persist.get_syntax(self.view) in ['c', 'c improved']:
-            code_type = 'c'
-        else:
-            code_type = 'c++'
 
         # to compile code from the standard input
         cmd += ' -x {0} -'.format(code_type)
