@@ -20,10 +20,12 @@ def get_project_folder():
     proj_file = sublime.active_window().project_file_name()
     if proj_file:
         return os.path.dirname(proj_file)
+
     # Use current file's folder when no project file is opened.
     proj_file = sublime.active_window().active_view().file_name()
     if proj_file:
         return os.path.dirname(proj_file)
+
     return '.'
 
 
@@ -31,8 +33,8 @@ def apply_template(s):
     mapping = {
         'project_folder': get_project_folder(),
     }
-    templ = string.Template(s)
-    return templ.safe_substitute(mapping)
+
+    return string.Template(s).safe_substitute(mapping)
 
 
 class Gcc(Linter):
@@ -48,13 +50,17 @@ class Gcc(Linter):
         # A non-Windows OS would have "cat" binary in its PATH?
         executable = 'cat'
 
-    multiline = False
-    syntax = ('c', 'c improved', 'c++', 'c++11')
-    regex = (
-        r'<stdin>:(?P<line>\d+):(?P<col>\d+):\s*'
-        r'.*?((?P<error>error)|(?P<warning>warning|note)):\s*'
-        r'(?P<message>.+)'
-    )
+    c_syntaxes = {
+        'c',
+        'c99',
+        'c11',
+        'c improved',
+    }
+
+    cpp_syntaxes = {
+        'c++',
+        'c++11',
+    }
 
     default_settings = {
         'executable': 'gcc',
@@ -62,12 +68,23 @@ class Gcc(Linter):
         'include_dirs': [],
     }
 
-    base_flags = (
+    common_flags = (
         '-c '
         '-fsyntax-only '
         '-Wall '
         '-O0 '
     )
+
+    # SublimeLinter capture settings
+    multiline = False
+    syntax = list(c_syntaxes | cpp_syntaxes)
+    regex = (
+        r'<stdin>:(?P<line>\d+):(?P<col>\d+):\s*'
+        r'.*?((?P<error>error)|(?P<warning>warning|note)):\s*'
+        r'(?P<message>.+)'
+    )
+
+    cmd_template = '{executable} {common_flags} {extra_flags} {include_dirs} -x {c_or_cpp} -'
 
     def cmd(self):
         """
@@ -77,22 +94,34 @@ class Gcc(Linter):
         and include paths based on settings.
         """
 
-        if persist.get_syntax(self.view) in ['c', 'c improved']:
-            code_type = 'c'
-        else:
-            code_type = 'c++'
-
         settings = self.get_view_settings()
-        executable = settings.get(code_type + '_executable', settings.get('executable', self.default_settings['executable']))
-        include_dirs = settings.get(code_type + "_include_dirs", settings.get('include_dirs', self.default_settings['include_dirs']))
-        extra_flags = settings.get(code_type + "_extra_flags", settings.get('extra_flags', self.default_settings['extra_flags']))
 
-        cmd = executable + ' ' + self.base_flags + apply_template(extra_flags)
+        if persist.get_syntax(self.view) in self.c_syntaxes:
+            c_or_cpp = 'c'
+        else:
+            c_or_cpp = 'c++'
 
-        if include_dirs:
-            cmd += apply_template(''.join([' -I' + shlex.quote(include) for include in include_dirs]))
+        base_settings = {
+            'executable'   : settings.get('executable',   self.default_settings['executable']),
+            'extra_flags'  : settings.get('extra_flags',  self.default_settings['extra_flags']),
+            'include_dirs' : settings.get('include_dirs', self.default_settings['include_dirs']),
+        }
 
-        # to compile code from the standard input
-        cmd += ' -x {0} -'.format(code_type)
+        merged_settings = {
+            'executable'   : settings.get(c_or_cpp + '_executable',   base_settings['executable']),
+            'extra_flags'  : settings.get(c_or_cpp + '_extra_flags',  base_settings['extra_flags']),
+            'include_dirs' : settings.get(c_or_cpp + '_include_dirs', base_settings['include_dirs']),
+        }
 
-        return cmd
+        return self.cmd_template.format(
+            executable = merged_settings['executable'],
+            common_flags = self.common_flags,
+            extra_flags = apply_template(merged_settings['extra_flags']),
+            include_dirs = apply_template(
+                ''.join({
+                    ' -I' + shlex.quote(include_dir)
+                    for include_dir in merged_settings['include_dirs']
+                })
+            ),
+            c_or_cpp = c_or_cpp,
+        )
