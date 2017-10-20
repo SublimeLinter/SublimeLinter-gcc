@@ -14,6 +14,7 @@ import os
 import shlex
 import string
 import sublime
+import sublime_plugin
 
 
 def get_project_folder():
@@ -79,7 +80,7 @@ class Gcc(Linter):
     multiline = False
     syntax = list(c_syntaxes | cpp_syntaxes)
     regex = (
-        r'<stdin>:(?P<line>\d+):(?P<col>\d+):\s*'
+        r'<stdin>:(?P<line>\d+):?(?P<col>\d+)?:?\s*'
         r'.*?((?P<error>error)|(?P<warning>warning|note)):\s*'
         r'(?P<message>.+)'
     )
@@ -125,3 +126,10 @@ class Gcc(Linter):
             ),
             c_or_cpp = c_or_cpp,
         )
+
+
+class SublimeLinterContribGccRunTests(sublime_plugin.WindowCommand):
+    def run(self):
+        from .test.regex_tests import run_tests
+
+        run_tests(Gcc.regex)
