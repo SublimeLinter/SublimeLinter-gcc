@@ -151,3 +151,21 @@ merc.h:62:47: note: in definition of macro ‘DECLARE_DO_FUN’
         message='redundant redeclaration of ‘void do_tattoo(CHAR_DATA*, const char*)’ in same scope [-Wredundant-decls]'
     )]
 ))
+
+
+_cases.append(case_tuple(
+    name="case6",
+    output="""
+In file included from <stdin>:5:0:
+merc.h:614:5: error: unknown type name ‘time_t’
+     time_t   creation_date;     /* Date clan created */
+     ^
+merc.h:649:4: error: unknown type name ‘time_t’
+    time_t timestamp; /* Date/time player convicted or forgiven */
+    ^
+""",
+    matches=[match_tuple(
+        line='5', col='0', error="error", warning=None,
+        message="unknown type name ‘time_t’"
+    )]
+))

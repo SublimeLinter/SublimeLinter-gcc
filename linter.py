@@ -77,7 +77,7 @@ class Gcc(Linter):
     )
 
     # SublimeLinter capture settings
-    multiline = False
+    multiline = True
     syntax = list(c_syntaxes | cpp_syntaxes)
     regex = (
         r'<stdin>:(?P<line>\d+):?(?P<col>\d+)?:?\s*'
