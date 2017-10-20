@@ -1,6 +1,11 @@
 # SublimeLinter-contrib-gcc
 
 
+## 1.2.1
+
+- Fix `col` is not always presented in `gcc` output.
+
+
 ## 1.2.0
 
 - Add `C` or `C++` specific settings.
