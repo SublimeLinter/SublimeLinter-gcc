@@ -80,7 +80,7 @@ class Gcc(Linter):
     multiline = True
     syntax = list(c_syntaxes | cpp_syntaxes)
     regex = (
-        r'<stdin>:(?P<line>\d+):?(?P<col>\d+)?:?\s*'
+        r'<stdin>:(?P<line>\d+):((?P<col>\d+):)?\s*'
         r'.*?((?P<error>error)|(?P<warning>warning|note)):\s*'
         r'(?P<message>.+)'
     )
@@ -129,7 +129,13 @@ class Gcc(Linter):
 
 
 class SublimeLinterContribGccRunTests(sublime_plugin.WindowCommand):
+    """
+    To do unittests, run the following command in ST's console:
+
+    window.run_command('sublime_linter_contrib_gcc_run_tests')
+    """
+
     def run(self):
-        from .test.regex_tests import run_tests
+        from .tests.regex_tests import run_tests
 
         run_tests(Gcc.regex)

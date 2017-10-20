@@ -42,8 +42,8 @@ In file included from test2.h:1:0,
                  from <stdin>:1:
 test1.h:4:1: error: unknown type name ‘SOME’
  SOME *error;
- ^ 
-""", 
+ ^
+""",
     matches=[match_tuple(
         line='1', col=None, error="error", warning=None,
         message="unknown type name ‘SOME’"
@@ -83,7 +83,7 @@ merc.h:4727:25: error: unknown type name ‘RBUFFER’
                          ^
 merc.h:5463:19: error: unknown type name ‘RBUFFER’
  void bread_tflag( RBUFFER *rbuf, tflag f );
-                   ^ 
+                   ^
 """,
     matches=[match_tuple(
         line='11', col=None, error="error", warning=None,
@@ -101,7 +101,7 @@ In file included from test2.h:1:0,
                  from <stdin>:1:
 test1.h:4:1: error: unknown type name ‘SOME’
  SOME *error;
- ^ 
+ ^
 """,
     matches=[match_tuple(
         line='1', col=None, error="error", warning=None,
