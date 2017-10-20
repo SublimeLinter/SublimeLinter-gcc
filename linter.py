@@ -69,12 +69,12 @@ class Gcc(Linter):
         'include_dirs': [],
     }
 
-    common_flags = (
-        '-c '
-        '-fsyntax-only '
-        '-Wall '
-        '-O0 '
-    )
+    common_flags = [
+        '-c',
+        '-fsyntax-only',
+        '-Wall',
+        '-O0',
+    ]
 
     # SublimeLinter capture settings
     multiline = True
@@ -116,7 +116,7 @@ class Gcc(Linter):
 
         return self.cmd_template.format(
             executable = merged_settings['executable'],
-            common_flags = self.common_flags,
+            common_flags = ' '.join(self.common_flags),
             extra_flags = apply_template(merged_settings['extra_flags']),
             include_dirs = apply_template(
                 ''.join({
