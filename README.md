@@ -73,8 +73,8 @@ For project-specific settings, `${project_folder}` can be used to specify relati
         "gcc": {
             "c_executable": "gcc",
             "c++_executable": "g++",
-            "c_extra_flags": "-Wall -std=c11",
-            "c++_extra_flags": "-Wall -std=c++11",
+            "c_extra_flags": "-fsyntax-only -std=c90",
+            "c++_extra_flags": "-fsyntax-only -std=c++11",
             "include_dirs": [
                 "${project_folder}/3rdparty/bar/include",
                 "${project_folder}/3rdparty/baz"
@@ -83,6 +83,13 @@ For project-specific settings, `${project_folder}` can be used to specify relati
     }
 },
 ```
+
+Notes
+=====
+
+- Flag `-fsyntax-only` gives a much faster grammar checking but
+  [some warnings](https://github.com/jfcherng/SublimeLinter-contrib-gcc/issues/4)
+  which are emit in the optimization phase would not be caught.
 
 
 Demo
