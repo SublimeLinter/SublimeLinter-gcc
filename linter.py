@@ -15,6 +15,7 @@ import shlex
 import string
 import sublime
 import sublime_plugin
+import tempfile
 
 
 def get_project_folder():
@@ -71,7 +72,6 @@ class Gcc(Linter):
 
     common_flags = [
         '-c',
-        '-fsyntax-only',
         '-Wall',
         '-O0',
     ]
@@ -85,7 +85,7 @@ class Gcc(Linter):
         r'(?P<message>.+)'
     )
 
-    cmd_template = '{executable} {common_flags} {extra_flags} {include_dirs} -x {c_or_cpp} -'
+    cmd_template = '{executable} {common_flags} {extra_flags} {include_dirs} -x {c_or_cpp} -o {garbage_file} -'
 
     def cmd(self):
         """
@@ -101,6 +101,11 @@ class Gcc(Linter):
             c_or_cpp = 'c'
         else:
             c_or_cpp = 'c++'
+
+        if sublime.platform() == 'windows':
+            garbage_file = tempfile.gettempdir() + r'\SublimeLinter-contrib-gcc.o'
+        else:
+            garbage_file = '/dev/null'
 
         base_settings = {
             'executable'   : settings.get('executable',   self.default_settings['executable']),
@@ -125,6 +130,7 @@ class Gcc(Linter):
                 })
             ),
             c_or_cpp = c_or_cpp,
+            garbage_file=shlex.quote(garbage_file),
         )
 
 
