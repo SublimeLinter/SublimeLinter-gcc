@@ -1,6 +1,12 @@
 # SublimeLinter-contrib-gcc
 
 
+## 1.2.2
+
+- Remove `-fsyntax-only` from common flags.
+  See https://github.com/jfcherng/SublimeLinter-contrib-gcc/issues/4 for details.
+
+
 ## 1.2.1
 
 - Fix `col` is not always presented in `gcc` output.
