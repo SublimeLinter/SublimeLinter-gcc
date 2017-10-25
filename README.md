@@ -59,12 +59,13 @@ In addition to the standard SublimeLinter settings, SublimeLinter-contrib-gcc pr
 | :------ | :---------- |
 | executable | If you are not using `gcc`, you have to set this to your compiler binary. (like `arm-none-eabi-gcc`) |
 | include_dirs | A list of directories to be added to the header search paths (`-I` is not needed). |
-| extra_flags | A string with extra flags to pass to gcc. These should be used carefully, as they may cause linting to fail. |
+| extra_flags | A string with extra flags to pass to the compiler. These should be used carefully, as they may cause linting to fail. |
 
-All settings above could be `C` or `C++` specific.
-To do that, simply add `c_` or `c++_` prefix to a setting's key.
+- All settings above could be `C` or `C++` specific.
+  To do that, simply add `c_` or `c++_` prefix to a setting's key.
+- For project-specific settings, `${project_folder}` can be used to specify relative path.
 
-For project-specific settings, `${project_folder}` can be used to specify relative path.
+Here is an example settings:
 ```javascript
 "SublimeLinter":
 {
@@ -87,9 +88,12 @@ For project-specific settings, `${project_folder}` can be used to specify relati
 Notes
 =====
 
-- Flag `-fsyntax-only` gives a much faster grammar checking but
+- [Here](https://gcc.gnu.org/onlinedocs/gcc-7.2.0/gcc/Warning-Options.html#Warning-Options)
+  is the official list of warning options in gcc 7.2.0. I prefer turn on all warnings
+  via `-Wall` (this is default for this plugin) and then suppress unwanted warnings via `-Wno-` prefix.
+- Flag `-fsyntax-only` gives a much faster syntax-only checking but
   [some warnings](https://github.com/jfcherng/SublimeLinter-contrib-gcc/issues/4)
-  which are emit in the optimization phase would not be caught.
+  which are emitted in the code optimization phase would not be caught.
 
 
 Demo
