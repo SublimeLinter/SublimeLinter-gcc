@@ -130,7 +130,7 @@ class Gcc(Linter):
                 })
             ),
             c_or_cpp = c_or_cpp,
-            garbage_file=shlex.quote(garbage_file),
+            garbage_file = shlex.quote(garbage_file),
         )
 
 
