@@ -19,6 +19,10 @@ import tempfile
 
 
 def get_SL_version():
+    """
+    Return the major version number of the loaded SublimeLinter.
+    """
+
     if hasattr(persist, 'get_syntax'):
         return '3'
 
@@ -47,7 +51,9 @@ def apply_template(s):
 
 
 class Gcc(Linter):
-    """ Provides an interface to gcc. """
+    """
+    Provides an interface to gcc/g++.
+    """
 
     c_syntaxes = {
         'c',
@@ -85,13 +91,16 @@ class Gcc(Linter):
     if get_SL_version() == '3':
         # We would like to bind "executable" later in cmd(self), but
         # if "executable" is not found here, this linter won't be activated.
-        # The following if-branch just makes sure an "executable" could be found.
+        # The following if-branch makes sure an "executable" could be found.
         if sublime.platform() == 'windows':
             # Windows OS would have "cmd" (or "explorer") binary in its PATH
             executable = 'cmd'
         else:
             # A non-Windows OS would have "cat" binary in its PATH?
             executable = 'cat'
+    else:
+        # For SL4, to use a dynamic "executable", just do not set the "executable".
+        executable = None
 
     cmd_template = '{executable} {common_flags} {extra_flags} {include_dirs} -x {c_or_cpp} -o {garbage_file} -'
 
@@ -103,14 +112,7 @@ class Gcc(Linter):
         and include paths based on settings.
         """
 
-        settings = self.get_view_settings()
-
-        if get_SL_version() == '3':
-            syntax = persist.get_syntax(self.view)
-        else:
-            syntax = util.get_syntax(self.view)
-
-        if syntax in self.c_syntaxes:
+        if self.get_syntax() in self.c_syntaxes:
             c_or_cpp = 'c'
         else:
             c_or_cpp = 'c++'
@@ -120,26 +122,16 @@ class Gcc(Linter):
         else:
             garbage_file = '/dev/null'
 
-        base_settings = {
-            'executable'   : settings.get('executable',   self.default_settings['executable']),
-            'extra_flags'  : settings.get('extra_flags',  self.default_settings['extra_flags']),
-            'include_dirs' : settings.get('include_dirs', self.default_settings['include_dirs']),
-        }
-
-        merged_settings = {
-            'executable'   : settings.get(c_or_cpp + '_executable',   base_settings['executable']),
-            'extra_flags'  : settings.get(c_or_cpp + '_extra_flags',  base_settings['extra_flags']),
-            'include_dirs' : settings.get(c_or_cpp + '_include_dirs', base_settings['include_dirs']),
-        }
+        settings = self.get_syntax_specific_settings(c_or_cpp)
 
         return self.cmd_template.format(
-            executable = merged_settings['executable'],
+            executable = settings['executable'],
             common_flags = ' '.join(self.common_flags),
-            extra_flags = apply_template(merged_settings['extra_flags']),
+            extra_flags = apply_template(settings['extra_flags']),
             include_dirs = apply_template(
                 ' '.join({
                     '-I' + shlex.quote(include_dir)
-                    for include_dir in merged_settings['include_dirs']
+                    for include_dir in settings['include_dirs']
                 })
             ),
             c_or_cpp = c_or_cpp,
@@ -158,6 +150,31 @@ class Gcc(Linter):
         """
 
         return True
+
+    def get_syntax(self):
+        """
+        Return the lowercase syntax name of the current view.
+        """
+
+        if get_SL_version() == '3':
+            return persist.get_syntax(self.view)
+        else:
+            return util.get_syntax(self.view)
+
+    def get_syntax_specific_settings(self, c_or_cpp):
+        settings = self.get_view_settings()
+
+        base_settings = {
+            'executable'   : settings.get('executable',   self.default_settings['executable']),
+            'extra_flags'  : settings.get('extra_flags',  self.default_settings['extra_flags']),
+            'include_dirs' : settings.get('include_dirs', self.default_settings['include_dirs']),
+        }
+
+        return {
+            'executable'   : settings.get(c_or_cpp + '_executable',   base_settings['executable']),
+            'extra_flags'  : settings.get(c_or_cpp + '_extra_flags',  base_settings['extra_flags']),
+            'include_dirs' : settings.get(c_or_cpp + '_include_dirs', base_settings['include_dirs']),
+        }
 
 
 class SublimeLinterContribGccRunTests(sublime_plugin.WindowCommand):
