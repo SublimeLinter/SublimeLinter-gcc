@@ -1,6 +1,11 @@
 # SublimeLinter-contrib-gcc
 
 
+## 1.3.0
+
+- Compatible with SublimeLinter4.
+
+
 ## 1.2.2
 
 - Remove `-fsyntax-only` from common flags.
