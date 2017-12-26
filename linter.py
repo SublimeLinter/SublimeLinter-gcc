@@ -9,13 +9,20 @@
 # License: MIT
 #
 
-from SublimeLinter.lint import Linter, persist
+from SublimeLinter.lint import Linter, persist, util
 import os
 import shlex
 import string
 import sublime
 import sublime_plugin
 import tempfile
+
+
+def get_SL_version():
+    if hasattr(persist, 'get_syntax'):
+        return '3'
+
+    return '4'
 
 
 def get_project_folder():
@@ -41,16 +48,6 @@ def apply_template(s):
 
 class Gcc(Linter):
     """ Provides an interface to gcc. """
-
-    # We would like to bind "executable" later in cmd(self), but
-    # if "executable" is not found here, this linter won't be activated.
-    # The following if-branch just makes sure an "executable" could be found.
-    if sublime.platform() == 'windows':
-        # Windows OS would have "cmd" (or "explorer") binary in its PATH
-        executable = 'cmd'
-    else:
-        # A non-Windows OS would have "cat" binary in its PATH?
-        executable = 'cat'
 
     c_syntaxes = {
         'c',
@@ -85,6 +82,17 @@ class Gcc(Linter):
         r'(?P<message>.+)'
     )
 
+    if get_SL_version() == '3':
+        # We would like to bind "executable" later in cmd(self), but
+        # if "executable" is not found here, this linter won't be activated.
+        # The following if-branch just makes sure an "executable" could be found.
+        if sublime.platform() == 'windows':
+            # Windows OS would have "cmd" (or "explorer") binary in its PATH
+            executable = 'cmd'
+        else:
+            # A non-Windows OS would have "cat" binary in its PATH?
+            executable = 'cat'
+
     cmd_template = '{executable} {common_flags} {extra_flags} {include_dirs} -x {c_or_cpp} -o {garbage_file} -'
 
     def cmd(self):
@@ -97,7 +105,12 @@ class Gcc(Linter):
 
         settings = self.get_view_settings()
 
-        if persist.get_syntax(self.view) in self.c_syntaxes:
+        if get_SL_version() == '3':
+            syntax = persist.get_syntax(self.view)
+        else:
+            syntax = util.get_syntax(self.view)
+
+        if syntax in self.c_syntaxes:
             c_or_cpp = 'c'
         else:
             c_or_cpp = 'c++'
@@ -124,14 +137,27 @@ class Gcc(Linter):
             common_flags = ' '.join(self.common_flags),
             extra_flags = apply_template(merged_settings['extra_flags']),
             include_dirs = apply_template(
-                ''.join({
-                    ' -I' + shlex.quote(include_dir)
+                ' '.join({
+                    '-I' + shlex.quote(include_dir)
                     for include_dir in merged_settings['include_dirs']
                 })
             ),
             c_or_cpp = c_or_cpp,
             garbage_file = shlex.quote(garbage_file),
         )
+
+    @classmethod
+    def can_lint_syntax(cls, syntax):
+        """
+        Return whether a linter can lint a given syntax.
+
+        Subclasses may override this if the built in mechanism in can_lint
+        is not sufficient. When this method is called, cls.executable_path
+        has been set. If it is '', that means the executable was not specified
+        or could not be found.
+        """
+
+        return True
 
 
 class SublimeLinterContribGccRunTests(sublime_plugin.WindowCommand):
