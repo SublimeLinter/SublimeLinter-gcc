@@ -1,9 +1,14 @@
 # SublimeLinter-contrib-gcc
 
 
+## 1.3.1
+
+- Allow `extra_flags` to be a list.
+
+
 ## 1.3.0
 
-- Compatible with SublimeLinter4.
+- Compatible with SublimeLinter 4.
 
 
 ## 1.2.2
