@@ -59,7 +59,7 @@ In addition to the standard SublimeLinter settings, SublimeLinter-contrib-gcc pr
 | :------ | :---------- |
 | executable | If you are not using `gcc`, you have to set this to your compiler binary. (like `arm-none-eabi-gcc`) |
 | include_dirs | A list of directories to be added to the header search paths (`-I` is not needed). |
-| extra_flags | A string with extra flags to pass to the compiler. These should be used carefully, as they may cause linting to fail. |
+| extra_flags | A list of extra flags to pass to the compiler. These should be used carefully, as they may cause linting to fail. |
 
 - All settings above could be `C` or `C++` specific.
   To do that, simply add `c_` or `c++_` prefix to a setting's key.
@@ -73,12 +73,17 @@ Here is an example settings:
     {
         "gcc": {
             "c_executable": "gcc",
+            "c_extra_flags": [
+              "-fsyntax-only",
+              "-std=c90"
+            ],
             "c++_executable": "g++",
-            "c_extra_flags": "-fsyntax-only -std=c90",
-            "c++_extra_flags": "-fsyntax-only -std=c++11",
+            "c++_extra_flags": [
+              "-fsyntax-only",
+              "-std=c++11"
+            ],
             "include_dirs": [
-                "${project_folder}/3rdparty/bar/include",
-                "${project_folder}/3rdparty/baz"
+                "${project_folder}/include"
             ]
         }
     }
@@ -114,7 +119,7 @@ A few things to try when there's (almost) no linting information available:
 
 Assuming the compilation works when executed via command line, try to compile with `g++ -v`.
 This will display all of the hidden flags that gcc uses.
-As a last resort, they can all be added as `extra_flags`.
+As a last resort, they can all be added in `extra_flags`.
 
 
 Contributing
