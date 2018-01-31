@@ -1,6 +1,11 @@
 # SublimeLinter-contrib-gcc
 
 
+## 1.3.3
+
+- Fix typos.
+
+
 ## 1.3.2
 
 - Get SublimeLinter's version number via SublimeLinter 4 API.
