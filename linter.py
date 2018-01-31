@@ -94,7 +94,7 @@ class Gcc(Linter):
         r'(?P<message>.+)'
     )
 
-    if get_SL_version() == '3':
+    if get_SL_version() == 3:
         # Note: This is a dirty hack to use a dynamical "executable".
         #
         # If "executable" is not found here, this linter just won't be activated.
@@ -145,7 +145,7 @@ class Gcc(Linter):
         Return the lowercase syntax name of the current view.
         """
 
-        if get_SL_version() == '3':
+        if get_SL_version() == 3:
             return persist.get_syntax(self.view)
         else:
             return util.get_syntax(self.view)
