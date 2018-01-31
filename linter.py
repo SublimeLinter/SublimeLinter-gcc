@@ -15,18 +15,16 @@ import shlex
 import string
 import sublime
 import sublime_plugin
+import SublimeLinter
 import tempfile
 
 
 def get_SL_version():
     """
-    Return the major version number of the loaded SublimeLinter.
+    Return the major version number of SublimeLinter.
     """
 
-    if hasattr(persist, 'get_syntax'):
-        return '3'
-
-    return '4'
+    return getattr(SublimeLinter, 'VERSION', 3)
 
 
 def get_project_folder():
