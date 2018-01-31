@@ -1,6 +1,11 @@
 # SublimeLinter-contrib-gcc
 
 
+## 1.3.2
+
+- Get SublimeLinter's version number via SublimeLinter 4 API.
+
+
 ## 1.3.1
 
 - Allow `extra_flags` to be a list.
