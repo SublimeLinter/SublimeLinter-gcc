@@ -1,5 +1,5 @@
-SublimeLinter-contrib-gcc
-=========================
+SublimeLinter-gcc
+=================
 
 This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter3) provides an interface to [gcc](https://gcc.gnu.org/) or other gcc-like (cross-)compiler.
 It will be used with files that have the C/C++ syntax.
@@ -10,7 +10,8 @@ Installation
 ============
 
 SublimeLinter 3 must be installed in order to use this plugin.
-If SublimeLinter 3 is not installed, please follow the instructions [here](http://sublimelinter.readthedocs.org/en/latest/installation.html).
+If SublimeLinter 3 is not installed, please follow the instructions
+[here](http://sublimelinter.readthedocs.org/en/latest/installation.html).
 
 
 ### Linter installation
@@ -24,17 +25,17 @@ You may install `gcc` with the following method:
 - Windows: [MinGW-w64](https://sourceforge.net/projects/mingw-w64)
 
 Once `gcc` is installed, you must ensure it is in your system PATH so that SublimeLinter can find it.
-This may not be as straightforward as you think,
-so please read [How linter executables are located](http://sublimelinter.readthedocs.org/en/latest/usage.html#how-linter-executables-are-located) in the documentation.
+This may not be as straightforward as you think, so please read [How linter executables are located](http://sublimelinter.readthedocs.org/en/latest/usage.html#how-linter-executables-are-located) in the documentation.
 
-Once you have installed `gcc` you can proceed to install the `SublimeLinter-contrib-gcc` plugin if it is not yet installed.
+Once you have installed `gcc` you can proceed to install the `SublimeLinter-gcc` plugin if it is not yet installed.
 
 
 ## Plugin installation
 
 Please use [Package Control](https://sublime.wbond.net/installation) to install the linter plugin.
 This will ensure that the plugin will be updated when new versions are available.
-If you want to install from source so you can modify the source code, you probably know what you are doing so we won't cover that here.
+If you want to install from source so you can modify the source code,
+you probably know what you are doing so we won't cover that here.
 
 To install via Package Control, do the following:
 
@@ -43,7 +44,7 @@ To install via Package Control, do the following:
    If that command is not highlighted, use the keyboard or mouse to select it.
    There will be a pause of a few seconds while Package Control fetches the list of available plugins.
 
-1. When the plugin list appears, type `gcc`. Among the entries you should see `SublimeLinter-contrib-gcc`.
+1. When the plugin list appears, type `gcc`. Among the entries you should see `SublimeLinter-gcc`.
    If that entry is not highlighted, use the keyboard or mouse to select it.
 
 
@@ -53,7 +54,7 @@ Settings
 For general information on how SublimeLinter works with settings, please see [Settings](http://sublimelinter.readthedocs.org/en/latest/settings.html).
 For information on generic linter settings, please see [Linter Settings](http://sublimelinter.readthedocs.org/en/latest/linter_settings.html).
 
-In addition to the standard SublimeLinter settings, SublimeLinter-contrib-gcc provides its own settings.
+In addition to the standard SublimeLinter settings, SublimeLinter-gcc provides its own settings.
 
 | Setting | Description |
 | :------ | :---------- |
@@ -63,6 +64,7 @@ In addition to the standard SublimeLinter settings, SublimeLinter-contrib-gcc pr
 
 - All settings above could be `C` or `C++` specific.
   To do that, simply add `c_` or `c++_` prefix to a setting's key.
+
 - For project-specific settings, `${project_folder}` can be used to specify relative path.
 
 Here is an example settings:
@@ -74,13 +76,13 @@ Here is an example settings:
         "gcc": {
             "c_executable": "gcc",
             "c_extra_flags": [
-              "-fsyntax-only",
-              "-std=c90"
+                "-fsyntax-only",
+                "-std=c90"
             ],
             "c++_executable": "g++",
             "c++_extra_flags": [
-              "-fsyntax-only",
-              "-std=c++11"
+                "-fsyntax-only",
+                "-std=c++11"
             ],
             "include_dirs": [
                 "${project_folder}/include"
@@ -90,21 +92,23 @@ Here is an example settings:
 },
 ```
 
+
 Notes
 =====
 
 - [Here](https://gcc.gnu.org/onlinedocs/gcc-7.2.0/gcc/Warning-Options.html#Warning-Options)
   is the official list of warning options in gcc 7.2.0. I prefer turn on all warnings
   via `-Wall` (this is default for this plugin) and then suppress unwanted warnings via `-Wno-` prefix.
+
 - Flag `-fsyntax-only` gives a much faster syntax-only checking but
-  [some warnings](https://github.com/jfcherng/SublimeLinter-contrib-gcc/issues/4)
+  [some warnings](https://github.com/SublimeLinter/SublimeLinter-gcc/issues/4)
   which are emitted in the code optimization phase would not be caught.
 
 
 Demo
 ====
 
-![linting_example](https://raw.githubusercontent.com/jfcherng/SublimeLinter-contrib-gcc/gh-pages/images/linting_example.png)
+![linting_example](https://raw.githubusercontent.com/SublimeLinter/SublimeLinter-gcc/gh-pages/images/linting_example.png)
 
 
 Troubleshooting

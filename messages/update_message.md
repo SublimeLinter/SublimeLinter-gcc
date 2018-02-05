@@ -1,2 +1,2 @@
-SublimeLinter-contrib-iverilog has been updated. To see the changelog, visit
-Preferences » Package Settings » SublimeLinter-contrib-iverilog » Changelog
+SublimeLinter-gcc has been updated. To see the changelog, visit
+Preferences » Package Settings » SublimeLinter-gcc » Changelog
