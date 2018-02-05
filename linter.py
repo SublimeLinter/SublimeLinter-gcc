@@ -24,7 +24,7 @@ def get_SL_version():
     Return the major version number of SublimeLinter.
     """
 
-    return getattr(SublimeLinter, 'VERSION', 3)
+    return getattr(SublimeLinter.lint, 'VERSION', 3)
 
 
 def get_project_folder():
