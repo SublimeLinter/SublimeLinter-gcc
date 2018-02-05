@@ -4,20 +4,20 @@
         "caption": "Package Settings",
         "id": "package-settings",
         "children": [{
-            "caption": "SublimeLinter-contrib-gcc",
+            "caption": "SublimeLinter-gcc",
             "children": [{
                 "caption": "-"
             }, {
                 "caption": "README",
                 "command": "open_file",
                 "args": {
-                    "file": "${packages}/SublimeLinter-contrib-gcc/README.md"
+                    "file": "${packages}/SublimeLinter-gcc/README.md"
                 }
             }, {
                 "caption": "Changelog",
                 "command": "open_file",
                 "args": {
-                    "file": "${packages}/SublimeLinter-contrib-gcc/CHANGELOG.md"
+                    "file": "${packages}/SublimeLinter-gcc/CHANGELOG.md"
                 }
             }, {
                 "caption": "-"
@@ -25,7 +25,7 @@
                 "caption": "Open the demo file",
                 "command": "open_file",
                 "args": {
-                    "file": "${packages}/SublimeLinter-contrib-gcc/miscellaneous/demo.cpp"
+                    "file": "${packages}/SublimeLinter-gcc/miscellaneous/demo.cpp"
                 }
             }, {
                 "caption": "-"
