@@ -4,7 +4,7 @@
 #
 # Written by Jack Cherng
 # https://github.com/jfcherng/SublimeLinter-contrib-gcc
-# Copyright (c) 2017 jfcherng
+# Copyright (c) 2017-2018 jfcherng
 #
 # License: MIT
 #
