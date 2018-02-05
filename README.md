@@ -3,7 +3,7 @@ SublimeLinter-gcc
 
 This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter3) provides an interface to [gcc](https://gcc.gnu.org/) or other gcc-like (cross-)compiler.
 It will be used with files that have the C/C++ syntax.
-If you are using [clang](https://clang.llvm.org), you should consider [Sublime​Linter-contrib-clang](https://github.com/nirm03/SublimeLinter-clang).
+If you are using [clang](https://clang.llvm.org), you should consider [Sublime​Linter-clang](https://github.com/nirm03/SublimeLinter-clang).
 
 
 Installation
@@ -96,8 +96,8 @@ Here is an example settings:
 Notes
 =====
 
-- [Here](https://gcc.gnu.org/onlinedocs/gcc-7.2.0/gcc/Warning-Options.html#Warning-Options)
-  is the official list of warning options in gcc 7.2.0. I prefer turn on all warnings
+- [Here](https://gcc.gnu.org/onlinedocs/gcc-7.3.0/gcc/Warning-Options.html#Warning-Options)
+  is the official list of warning options in gcc 7.3.0. I prefer turn on all warnings
   via `-Wall` (this is default for this plugin) and then suppress unwanted warnings via `-Wno-` prefix.
 
 - Flag `-fsyntax-only` gives a much faster syntax-only checking but
@@ -143,7 +143,7 @@ Please note that modifications should follow these coding guidelines:
 - Indent is 4 spaces.
 - Code should pass flake8 and pep257 linters.
 - Vertical whitespace helps readability, don’t be afraid to use it.
-- Please use descriptive variable names, no abbrevations unless they are very well known.
+- Please use descriptive variable names, no abbreviations unless they are very well known.
 
 Thank you for helping out!
 
