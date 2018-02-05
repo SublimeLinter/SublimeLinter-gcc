@@ -1,4 +1,9 @@
-# SublimeLinter-contrib-gcc
+# SublimeLinter-gcc
+
+
+## 1.3.5
+
+- Change package names from `SublimeLinter-contrib-gcc` to `SublimeLinter-gcc`.
 
 
 ## 1.3.4
