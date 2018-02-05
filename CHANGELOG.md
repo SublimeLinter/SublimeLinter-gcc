@@ -1,6 +1,11 @@
 # SublimeLinter-contrib-gcc
 
 
+## 1.3.4
+
+- Fix SublimeLinter version checking.
+
+
 ## 1.3.3
 
 - Fix typos.
