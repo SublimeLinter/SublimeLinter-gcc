@@ -15,7 +15,7 @@ import shlex
 import string
 import sublime
 import sublime_plugin
-import SublimeLinter
+import SublimeLinter.lint
 import tempfile
 
 
