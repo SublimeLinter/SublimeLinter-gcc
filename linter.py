@@ -112,8 +112,13 @@ class Gcc(Linter):
         and include paths based on settings.
         """
 
+        file_path = self.view.file_name()
         c_or_cpp = 'c' if self.get_syntax() in self.c_syntaxes else 'c++'
         settings = self.get_syntax_specific_settings(c_or_cpp)
+
+        # append the directory of the current file to the include directory
+        if file_path:
+            settings['include_dirs'].append(os.path.dirname(file_path))
 
         return self.cmd_template.format(
             executable = settings['executable'],
