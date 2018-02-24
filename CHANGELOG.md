@@ -1,6 +1,11 @@
 # SublimeLinter-gcc
 
 
+## 1.3.7
+
+- Automatically append the directory of the current file to the include directory.
+
+
 ## 1.3.5
 
 - Change package names from `SublimeLinter-contrib-gcc` to `SublimeLinter-gcc`.
