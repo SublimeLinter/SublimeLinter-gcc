@@ -3,7 +3,7 @@ SublimeLinter-gcc
 
 This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter) provides an interface to [gcc](https://gcc.gnu.org/) or other gcc-like (cross-)compiler.
 It will be used with files that have the C/C++ syntax.
-If you are using [clang](https://clang.llvm.org), you should consider [Sublime​Linter-clang](https://github.com/nirm03/SublimeLinter-clang).
+If you are using [clang](https://clang.llvm.org), you may want to check [Sublime​Linter-clang](https://github.com/nirm03/SublimeLinter-clang).
 
 
 Installation
@@ -14,7 +14,8 @@ If SublimeLinter is not installed, please follow the instructions
 [here](http://sublimelinter.readthedocs.org/en/latest/installation.html).
 
 
-### Linter installation
+Linter installation
+-------------------
 
 Before using this plugin, you must ensure that `gcc` or other gcc-like (cross-)compiler is installed on your system.
 
@@ -27,10 +28,9 @@ You may install `gcc` with the following method:
 Once `gcc` is installed, you must ensure it is in your system PATH so that SublimeLinter can find it.
 This may not be as straightforward as you think, so please read [How linter executables are located](http://sublimelinter.readthedocs.org/en/latest/usage.html#how-linter-executables-are-located) in the documentation.
 
-Once you have installed `gcc` you can proceed to install the `SublimeLinter-gcc` plugin if it is not yet installed.
 
-
-## Plugin installation
+Plugin installation
+-------------------
 
 Please use [Package Control](https://sublime.wbond.net/installation) to install the linter plugin.
 This will ensure that the plugin will be updated when new versions are available.
@@ -62,12 +62,13 @@ In addition to the standard SublimeLinter settings, SublimeLinter-gcc provides i
 | include_dirs | A list of directories to be added to the header search paths (`-I` is not needed). |
 | extra_flags | A list of extra flags to pass to the compiler. These should be used carefully, as they may cause linting to fail. |
 
-- All settings above could be `C` or `C++` specific.
+- All settings above could be `C` or `C++` specific as well.
   To do that, simply add `c_` or `c++_` prefix to a setting's key.
 
 - For project-specific settings, `${project_folder}` can be used to specify relative path.
 
 Here is an example settings:
+
 ```javascript
 "SublimeLinter":
 {
@@ -136,7 +137,7 @@ If you would like to contribute enhancements or fixes, please do the following:
 1. Commit and push the topic branch.
 1. Make sure your modification could pass unittests.
 1. Make a pull request.
-1. Be patient.  ;-)
+1. Be patient.
 
 Please note that modifications should follow these coding guidelines:
 
