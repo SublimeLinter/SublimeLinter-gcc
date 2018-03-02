@@ -3,7 +3,7 @@ SublimeLinter-gcc
 
 This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter) provides an interface to [gcc](https://gcc.gnu.org/) or other gcc-like (cross-)compiler.
 It will be used with files that have the C/C++ syntax.
-If you are using [clang](https://clang.llvm.org), you may want to check [Sublime​Linter-clang](https://github.com/nirm03/SublimeLinter-clang).
+If you are using [clang](https://clang.llvm.org), you may want to check [SublimeLinter-clang](https://github.com/SublimeLinter/SublimeLinter-clang).
 
 
 Installation
