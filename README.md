@@ -113,7 +113,7 @@ Notes
 Demo
 ====
 
-![linting_example](https://raw.githubusercontent.com/SublimeLinter/SublimeLinter-gcc/gh-pages/images/linting_example.png)
+![linting_example](https://raw.githubusercontent.com/SublimeLinter/SublimeLinter-gcc/gh-pages/images/linting_example_sl4.png)
 
 
 Troubleshooting
