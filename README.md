@@ -70,27 +70,31 @@ In addition to the standard SublimeLinter settings, SublimeLinter-gcc provides i
 Here is an example settings:
 
 ```javascript
-"SublimeLinter":
 {
     "linters":
     {
         "gcc": {
+            "disable": false,
+            // C-specific settings
             "c_executable": "gcc",
             "c_extra_flags": [
                 "-fsyntax-only",
-                "-std=c90"
+                "-std=c90",
             ],
+            // C++-specific settings
             "c++_executable": "g++",
             "c++_extra_flags": [
                 "-fsyntax-only",
-                "-std=c++11"
+                "-std=c++11",
             ],
+            // include_dirs for both C and C++
             "include_dirs": [
-                "${project_folder}/include"
-            ]
-        }
-    }
-},
+                "${project_folder}/include",
+                "/usr/local/include",
+            ],
+        },
+    },
+}
 ```
 
 
