@@ -26,20 +26,38 @@ def get_SL_version():
     return getattr(SublimeLinter.lint, 'VERSION', 3)
 
 
+def get_syntax():
+    """
+    Return the lowercase syntax name of the current view.
+    """
+
+    view = sublime.active_window().active_view()
+
+    if get_SL_version() == 3:
+        return persist.get_syntax(view)
+    else:
+        return util.get_syntax(view)
+
+
 def get_project_folder():
-    proj_file = sublime.active_window().project_file_name()
-    if proj_file:
-        return os.path.dirname(proj_file)
+    """
+    Return the current project directory.
+    """
+
+    project_file = sublime.active_window().project_file_name()
 
     # use current file's folder when no project file is opened
-    proj_file = sublime.active_window().active_view().file_name()
-    if proj_file:
-        return os.path.dirname(proj_file)
+    if not project_file:
+        project_file = sublime.active_window().active_view().file_name()
 
-    return '.'
+    return os.path.dirname(project_file) if project_file else '.'
 
 
 def apply_template(s):
+    """
+    Return a string with variables inside it gets interpreted.
+    """
+
     mapping = {
         'project_folder': get_project_folder(),
     }
@@ -77,7 +95,7 @@ class Gcc(Linter):
     }
 
     if sublime.platform() == 'windows':
-        garbage_file = tempfile.gettempdir() + r'\SublimeLinter-contrib-gcc.o'
+        garbage_file = os.path.join(tempfile.gettempdir(), 'SublimeLinter-gcc.o')
     else:
         garbage_file = '/dev/null'
 
@@ -94,7 +112,7 @@ class Gcc(Linter):
     )
 
     if get_SL_version() == 3:
-        # Note: This is a dirty hack to use a dynamical "executable".
+        # Note: This is a dirty hack to use a dynamical "executable" for SL3.
         #
         # If "executable" is not found here, this linter just won't be activated.
         # The following if-branch makes sure an "executable" could be found.
@@ -108,16 +126,11 @@ class Gcc(Linter):
         Return the command line to be executed.
 
         We override this method, so we can change executable, add extra flags
-        and include paths based on settings.
+        and include directories basing on settings.
         """
 
-        file_path = self.view.file_name()
-        c_or_cpp = 'c' if self.get_syntax() in self.c_syntaxes else 'c++'
+        c_or_cpp = 'c' if get_syntax() in self.c_syntaxes else 'c++'
         settings = self.get_syntax_specific_settings(c_or_cpp)
-
-        # append the directory of the current file to the include directory
-        if file_path:
-            settings['include_dirs'].append(os.path.dirname(file_path))
 
         return self.cmd_template.format(
             executable = settings['executable'],
@@ -131,6 +144,33 @@ class Gcc(Linter):
             garbage_file = shlex.quote(self.garbage_file),
         )
 
+    def get_syntax_specific_settings(self, c_or_cpp):
+        """
+        Return the syntax specific settings.
+        """
+
+        settings = self.get_view_settings()
+
+        ret = {
+            attr: settings.get(
+                "{}_{}".format(c_or_cpp, attr),
+                settings.get(attr, self.default_settings[attr])
+            )
+            for attr in self.default_settings
+        }
+
+        # append the directory of the current file to the include directory
+        file_path = self.view.file_name()
+        if file_path:
+            settings['include_dirs'].append(os.path.dirname(file_path))
+
+        # just for BC, always convert "extra_flags" into a list
+        if isinstance(ret['extra_flags'], str):
+            ret['extra_flags'] = shlex.split(ret['extra_flags'])
+
+        return ret
+
+    # override parent method
     @classmethod
     def can_lint_syntax(cls, syntax):
         """
@@ -144,39 +184,11 @@ class Gcc(Linter):
 
         return True
 
-    def get_syntax(self):
-        """
-        Return the lowercase syntax name of the current view.
-        """
 
-        if get_SL_version() == 3:
-            return persist.get_syntax(self.view)
-        else:
-            return util.get_syntax(self.view)
-
-    def get_syntax_specific_settings(self, c_or_cpp):
-        settings = self.get_view_settings()
-
-        ret = {
-            attr: settings.get(
-                "{}_{}".format(c_or_cpp, attr),
-                settings.get(attr, self.default_settings[attr])
-            )
-            for attr in self.default_settings
-        }
-
-        # always convert "extra_flags" into a list
-        if isinstance(ret['extra_flags'], str):
-            ret['extra_flags'] = shlex.split(ret['extra_flags'])
-
-        return ret
-
-
-class SublimeLinterContribGccRunTests(sublime_plugin.WindowCommand):
+class SublimeLinterGccRunTests(sublime_plugin.WindowCommand):
     """
     To do unittests, run the following command in ST's console:
-
-    window.run_command('sublime_linter_contrib_gcc_run_tests')
+    window.run_command('sublime_linter_gcc_run_tests')
     """
 
     def run(self):
