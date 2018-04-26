@@ -1,6 +1,11 @@
 # SublimeLinter-gcc
 
 
+## 1.3.8
+
+- SublimeLinter 4.3.1 compatible.
+
+
 ## 1.3.7
 
 - Automatically append the directory of the current file to the include directory.
