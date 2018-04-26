@@ -103,6 +103,7 @@ class Gcc(Linter):
 
     # SublimeLinter capture settings
     executable = None
+    on_stderr = None  # handle stderr via split_match
     multiline = True
     syntax = list(c_syntaxes | cpp_syntaxes)
     regex = (
