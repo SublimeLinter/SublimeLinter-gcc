@@ -1,6 +1,11 @@
 # SublimeLinter-gcc
 
 
+## 1.3.9
+
+- Fix a typo.
+
+
 ## 1.3.8
 
 - SublimeLinter 4.3.1 compatible.
