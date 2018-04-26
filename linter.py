@@ -163,7 +163,7 @@ class Gcc(Linter):
         # append the directory of the current file to the include directory
         file_path = self.view.file_name()
         if file_path:
-            settings['include_dirs'].append(os.path.dirname(file_path))
+            ret['include_dirs'].append(os.path.dirname(file_path))
 
         # just for BC, always convert "extra_flags" into a list
         if isinstance(ret['extra_flags'], str):
