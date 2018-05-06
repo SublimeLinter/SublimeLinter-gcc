@@ -54,7 +54,7 @@ Settings
 For general information on how SublimeLinter works with settings, please see [Settings](http://sublimelinter.readthedocs.org/en/latest/settings.html).
 For information on generic linter settings, please see [Linter Settings](http://sublimelinter.readthedocs.org/en/latest/linter_settings.html).
 
-In addition to the standard SublimeLinter settings, SublimeLinter-gcc provides its own settings.
+In addition to the standard SublimeLinter settings, `SublimeLinter-gcc` provides its own settings.
 
 | Setting | Description |
 | :------ | :---------- |
@@ -101,8 +101,8 @@ Here is an example settings:
 Notes
 =====
 
-- [Here](https://gcc.gnu.org/onlinedocs/gcc-7.3.0/gcc/Warning-Options.html#Warning-Options)
-  is the official list of warning options in gcc 7.3.0. I prefer turn on all warnings
+- [Here](https://gcc.gnu.org/onlinedocs/gcc-8.1.0/gcc/Warning-Options.html#Warning-Options)
+  is the official list of warning options in gcc 8.1.0. I prefer turn on all warnings
   via `-Wall` (this is default for this plugin) and then suppress unwanted warnings via `-Wno-` prefix.
 
 - Flag `-fsyntax-only` gives a much faster syntax-only checking but
