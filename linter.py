@@ -88,7 +88,7 @@ class Gcc(Linter):
         '-O0',
     ]
 
-    default_settings = {
+    defaults = {
         'executable': 'gcc',
         'extra_flags': [],
         'include_dirs': [],
@@ -155,9 +155,9 @@ class Gcc(Linter):
         ret = {
             attr: settings.get(
                 "{}_{}".format(c_or_cpp, attr),
-                settings.get(attr, self.default_settings[attr])
+                settings.get(attr, self.defaults[attr])
             )
-            for attr in self.default_settings
+            for attr in self.defaults
         }
 
         # append the directory of the current file to the include directory
