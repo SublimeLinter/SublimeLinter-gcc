@@ -171,20 +171,6 @@ class Gcc(Linter):
 
         return ret
 
-    # override parent method
-    @classmethod
-    def can_lint_syntax(cls, syntax):
-        """
-        Return whether a linter can lint a given syntax.
-
-        Subclasses may override this if the built in mechanism in can_lint
-        is not sufficient. When this method is called, cls.executable_path
-        has been set. If it is '', that means the executable was not specified
-        or could not be found.
-        """
-
-        return True
-
 
 class SublimeLinterGccRunTests(sublime_plugin.WindowCommand):
     """
