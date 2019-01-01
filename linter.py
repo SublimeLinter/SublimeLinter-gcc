@@ -3,7 +3,7 @@
 # Linter for SublimeLinter4, a code checking framework for Sublime Text 3
 #
 # Written by Jack Cherng
-# Copyright (c) 2017-2018 jfcherng
+# Copyright (c) 2017-2019 jfcherng
 #
 # License: MIT
 #
