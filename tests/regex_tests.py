@@ -1,6 +1,6 @@
+from collections import namedtuple
 import re
 import unittest
-from collections import namedtuple
 
 
 class RegexTests(unittest.TestCase):
