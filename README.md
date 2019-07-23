@@ -62,9 +62,6 @@ In addition to the standard SublimeLinter settings, `SublimeLinter-gcc` provides
 | include_dirs | A list of directories to be added to the header search paths (`-I` is not needed). |
 | extra_flags | A list of extra flags to pass to the compiler. These should be used carefully, as they may cause linting to fail. |
 
-- All settings above could be `C` or `C++` specific as well.
-  To do that, simply add `c_` or `c++_` prefix to a setting's key.
-
 - For project-specific settings, `${project_folder}` can be used to specify relative path.
 
 Here is an example settings:
@@ -75,19 +72,23 @@ Here is an example settings:
     {
         "gcc": {
             "disable": false,
-            // C-specific settings
-            "c_executable": "gcc",
-            "c_extra_flags": [
+            "executable": "gcc",
+            "extra_flags": [
                 "-fsyntax-only",
                 "-std=c90",
             ],
-            // C++-specific settings
-            "c++_executable": "g++",
-            "c++_extra_flags": [
+            "include_dirs": [
+                "${project_folder}/include",
+                "/usr/local/include",
+            ],
+        },
+        "gcc++": {
+            "disable": false,
+            "executable": "g++",
+            "extra_flags": [
                 "-fsyntax-only",
                 "-std=c++11",
             ],
-            // include_dirs for both C and C++
             "include_dirs": [
                 "${project_folder}/include",
                 "/usr/local/include",

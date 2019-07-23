@@ -1,6 +1,10 @@
 # SublimeLinter-gcc
 
 
+## 1.4.0
+
+- Make two separated linters (as for sublimelinter-clang) and adapt to new sublime linter API
+
 ## 1.3.9
 
 - Fix a typo.
