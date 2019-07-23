@@ -11,7 +11,7 @@ Installation
 
 SublimeLinter must be installed in order to use this plugin.
 If SublimeLinter is not installed, please follow the instructions
-[here](http://sublimelinter.readthedocs.org/en/latest/installation.html).
+[here](http://sublimelinter.readthedocs.org/en/stable/installation.html).
 
 
 Linter installation
@@ -26,7 +26,7 @@ You may install `gcc` with the following method:
 - Windows: [MinGW-w64](https://sourceforge.net/projects/mingw-w64)
 
 Once `gcc` is installed, you must ensure it is in your system PATH so that SublimeLinter can find it.
-This may not be as straightforward as you think, so please read [How linter executables are located](http://sublimelinter.readthedocs.org/en/latest/usage.html#how-linter-executables-are-located) in the documentation.
+This may not be as straightforward as you think, so please read [How linter executables are located](http://sublimelinter.readthedocs.org/en/stable/usage.html#how-linter-executables-are-located) in the documentation.
 
 
 Plugin installation
@@ -51,21 +51,14 @@ To install via Package Control, do the following:
 Settings
 ========
 
-For general information on how SublimeLinter works with settings, please see [Settings](http://sublimelinter.readthedocs.org/en/latest/settings.html).
-For information on generic linter settings, please see [Linter Settings](http://sublimelinter.readthedocs.org/en/latest/linter_settings.html).
-
-In addition to the standard SublimeLinter settings, `SublimeLinter-gcc` provides its own settings.
+Here are some most frequently used custom settings.
 
 | Setting | Description |
 | :------ | :---------- |
-| executable | If you are not using `gcc`, you have to set this to your compiler binary. (like `arm-none-eabi-gcc`) |
-| include_dirs | A list of directories to be added to the header search paths (`-I` is not needed). |
-| extra_flags | A list of extra flags to pass to the compiler. These should be used carefully, as they may cause linting to fail. |
+| executable | The compiler binary path. This is `["gcc"]` or `["g++"]` by default. If you are not using them, you have to set this to your compiler binary such as `["arm-none-eabi-gcc"]`. |
+| I | A list of directories to be added to the header search paths. I.e., paths for `-I` flags. |
+| args | A list of extra flags to pass to the compiler. These should be used carefully, as they may cause linting to fail. |
 
-- All settings above could be `C` or `C++` specific as well.
-  To do that, simply add `c_` or `c++_` prefix to a setting's key.
-
-- For project-specific settings, `${project_folder}` can be used to specify relative path.
 
 Here is an example settings:
 
@@ -75,27 +68,35 @@ Here is an example settings:
     {
         "gcc": {
             "disable": false,
-            // C-specific settings
-            "c_executable": "gcc",
-            "c_extra_flags": [
-                "-fsyntax-only",
-                "-std=c90",
-            ],
-            // C++-specific settings
-            "c++_executable": "g++",
-            "c++_extra_flags": [
-                "-fsyntax-only",
-                "-std=c++11",
-            ],
-            // include_dirs for both C and C++
-            "include_dirs": [
-                "${project_folder}/include",
+            "executable": ["gcc"],
+            "args": ["-fsyntax-only", "-std=c90"],
+            "I": [
+                "${file_path}/include",
+                "${folder}/include",
                 "/usr/local/include",
             ],
+            "excludes": [],
+        },
+        "g++": {
+            "disable": false,
+            "executable": ["g++"],
+            "args": ["-fsyntax-only", "-std=c++17"],
+            "I": [
+                "${file_path}/include",
+                "${folder}/include",
+                "/usr/local/include",
+            ],
+            "excludes": [],
         },
     },
 }
 ```
+
+Here are some useful docs for SublimeLinter settings.
+
+- [General information on how SublimeLinter works with settings](http://sublimelinter.readthedocs.org/en/stable/settings.html).
+- [Variables that can be used in settings](http://www.sublimelinter.com/en/stable/settings.html#settings-expansion).
+- [Information on generic linter settings](http://sublimelinter.readthedocs.org/en/stable/linter_settings.html).
 
 
 Notes
@@ -123,12 +124,12 @@ C/C++ linting is not always straightforward.
 A few things to try when there's (almost) no linting information available:
 
 - Try to compile from the command line, and verify it works.
-- The linter might be missing some header files. They can be added with `include_dirs`.
+- The linter might be missing some header files. They can be added with settings `I`.
 - Sometimes gcc fails to locate the C/C++ standard library headers.
 
 Assuming the compilation works when executed via command line, try to compile with `g++ -v`.
 This will display all of the hidden flags that gcc uses.
-As a last resort, they can all be added in `extra_flags`.
+As a last resort, they can all be added in settings `args`.
 
 
 Contributing
@@ -147,6 +148,7 @@ Please note that modifications should follow these coding guidelines:
 
 - Indent is 4 spaces.
 - Code should pass flake8 and pep257 linters.
+- Probably format codes with [black](https://github.com/psf/black) code formatter.
 - Vertical whitespace helps readability, don’t be afraid to use it.
 - Please use descriptive variable names, no abbreviations unless they are very well known.
 
