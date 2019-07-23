@@ -101,7 +101,7 @@ Here is an example settings:
 Notes
 =====
 
-- [Here](https://gcc.gnu.org/onlinedocs/gcc-8.2.0/gcc/Warning-Options.html#Warning-Options)
+- [Here](https://gcc.gnu.org/onlinedocs/gcc-9.1.0/gcc/Warning-Options.html#Warning-Options)
   is the official list of warning options in gcc 8.2.0. I prefer turn on all warnings
   via `-Wall` (this is default for this plugin) and then suppress unwanted warnings via `-Wno-` prefix.
 
