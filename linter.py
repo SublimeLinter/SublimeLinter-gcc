@@ -37,8 +37,8 @@ def getGarbabgeFilePath():
 
     if sublime.platform() == "windows":
         return os.path.join(tempfile.gettempdir(), "SublimeLinter-gcc.o")
-    else:
-        return "/dev/null"
+
+    return "/dev/null"
 
 
 class Gcc(Linter):
