@@ -24,6 +24,17 @@ OUTPUT_RE = re.compile(
 
 
 def getGarbabgeFilePath():
+    """
+    @brief Get the path for generated garbabge file.
+
+    Some checks are not performed when flag "-fsyntax-only" is given.
+    To perform those checks in optimization phase, we must do a real compilation.
+    This garbage file path is just a dummy output file for that compilation.
+
+    @ref https://github.com/SublimeLinter/SublimeLinter-gcc/issues/4
+    @return string The garbabge file path.
+    """
+
     if sublime.platform() == "windows":
         return os.path.join(tempfile.gettempdir(), "SublimeLinter-gcc.o")
     else:
