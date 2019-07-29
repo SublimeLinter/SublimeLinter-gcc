@@ -23,7 +23,7 @@ OUTPUT_RE = re.compile(
 )
 
 
-def getGarbabgeFilePath():
+def get_garbabge_file_path():
     """
     @brief Get the path for generated garbabge file.
 
@@ -53,7 +53,7 @@ class Gcc(Linter):
         "args": ["-c", "-Wall", "-O0"],
         "-I +": [],
         "-x": "c",
-        "-o": getGarbabgeFilePath(),
+        "-o": get_garbabge_file_path(),
     }
 
 
@@ -69,7 +69,7 @@ class GPlusPlus(Linter):
         "args": ["-c", "-Wall", "-O0"],
         "-I +": [],
         "-x": "c++",
-        "-o": getGarbabgeFilePath(),
+        "-o": get_garbabge_file_path(),
     }
 
 
