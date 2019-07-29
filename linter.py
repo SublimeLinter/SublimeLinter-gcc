@@ -23,7 +23,7 @@ OUTPUT_RE = re.compile(
 )
 
 
-def get_garbabge_file_path():
+def get_garbabge_file_path() -> str:
     """
     @brief Get the path for generated garbabge file.
 
@@ -79,7 +79,7 @@ class SublimeLinterGccRunTests(sublime_plugin.WindowCommand):
     window.run_command('sublime_linter_gcc_run_tests')
     """
 
-    def run(self):
+    def run(self) -> None:
         from .tests.regex_tests import run_tests
 
         run_tests(Gcc.regex)
