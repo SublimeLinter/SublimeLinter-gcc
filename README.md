@@ -1,23 +1,22 @@
-SublimeLinter-gcc
-=================
+# SublimeLinter-gcc
 
-This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter) provides an interface to [gcc](https://gcc.gnu.org/) or other gcc-like (cross-)compiler.
+This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter)
+provides an interface to [gcc](https://gcc.gnu.org/) or other gcc-like (cross-)compiler.
 It will be used with files that have the C/C++ syntax.
-If you are using [clang](https://clang.llvm.org), you may want to check [SublimeLinter-clang](https://github.com/SublimeLinter/SublimeLinter-clang).
+If you are using [clang](https://clang.llvm.org), you may want to check
+[SublimeLinter-clang](https://github.com/SublimeLinter/SublimeLinter-clang).
 
 
-Installation
-============
+## Installation
 
 SublimeLinter must be installed in order to use this plugin.
 If SublimeLinter is not installed, please follow the instructions
-[here](http://sublimelinter.readthedocs.org/en/stable/installation.html).
+[here](https://sublimelinter.readthedocs.org/en/stable/installation.html).
 
 
-Linter installation
--------------------
+### Linter installation
 
-Before using this plugin, you must ensure that `gcc` or other gcc-like (cross-)compiler is installed on your system.
+Before using this plugin, you must ensure that `gcc` or other gcc-like compiler is installed on your system.
 
 You may install `gcc` with the following method:
 
@@ -26,11 +25,10 @@ You may install `gcc` with the following method:
 - Windows: [MinGW-w64](https://sourceforge.net/projects/mingw-w64)
 
 Once `gcc` is installed, you must ensure it is in your system PATH so that SublimeLinter can find it.
-This may not be as straightforward as you think, so please read [How linter executables are located](http://sublimelinter.readthedocs.org/en/stable/usage.html#how-linter-executables-are-located) in the documentation.
+This may not be as straightforward as you think, so please read [Debugging PATH problems](https://sublimelinter.readthedocs.org/en/stable/troubleshooting.html#debugging-path-problems) in the documentation.
 
 
-Plugin installation
--------------------
+### Plugin installation
 
 Please use [Package Control](https://sublime.wbond.net/installation) to install the linter plugin.
 This will ensure that the plugin will be updated when new versions are available.
@@ -39,7 +37,7 @@ you probably know what you are doing so we won't cover that here.
 
 To install via Package Control, do the following:
 
-1. Within Sublime Text, bring up the [Command Palette](http://docs.sublimetext.info/en/sublime-text-3/extensibility/command_palette.html) and type `install`.
+1. Within Sublime Text, bring up the `Command Palette` by <kbd>Ctrl + Shift + P</kbd> and type `install`.
    Among the commands you should see `Package Control: Install Package`.
    If that command is not highlighted, use the keyboard or mouse to select it.
    There will be a pause of a few seconds while Package Control fetches the list of available plugins.
@@ -48,16 +46,15 @@ To install via Package Control, do the following:
    If that entry is not highlighted, use the keyboard or mouse to select it.
 
 
-Settings
-========
+## Settings
 
 Here are some most frequently used custom settings.
 
 | Setting | Description |
 | :------ | :---------- |
-| executable | The compiler binary path. This is `["gcc"]` or `["g++"]` by default. If you are not using them, you have to set this to your compiler binary such as `["arm-none-eabi-gcc"]`. |
-| I | A list of directories to be added to the header search paths. I.e., paths for `-I` flags. |
-| args | A list of extra flags to pass to the compiler. These should be used carefully, as they may cause linting to fail. |
+| executable | The compiler's binary path. This is `["gcc"]` or `["g++"]` by default. If you are not using them, you have to set this to your compiler binary such as `["arm-none-eabi-gcc"]`. |
+| I | A list of directories to be added to the header's searching paths. I.e., paths for `-I` flags. |
+| args | A list of extra flags to be passed to the compiler. These should be used carefully as they may cause linting to fail. |
 
 
 Here is an example settings:
@@ -94,31 +91,28 @@ Here is an example settings:
 
 Here are some useful docs for SublimeLinter settings.
 
-- [General information on how SublimeLinter works with settings](http://sublimelinter.readthedocs.org/en/stable/settings.html).
-- [Variables that can be used in settings](http://www.sublimelinter.com/en/stable/settings.html#settings-expansion).
-- [Information on generic linter settings](http://sublimelinter.readthedocs.org/en/stable/linter_settings.html).
+- [General information on how SublimeLinter works with settings](https://sublimelinter.readthedocs.org/en/stable/settings.html).
+- [Variables that can be used in settings](https://sublimelinter.readthedocs.org/en/stable/settings.html#settings-expansion).
+- [Information on generic linter settings](https://sublimelinter.readthedocs.org/en/stable/linter_settings.html).
 
 
-Notes
-=====
+## Notes
 
 - [Here](https://gcc.gnu.org/onlinedocs/gcc-9.1.0/gcc/Warning-Options.html#Warning-Options)
-  is the official list of warning options in gcc 8.2.0. I prefer turn on all warnings
+  is the official list of warning options in gcc 9.1.0. I prefer turn on all warnings
   via `-Wall` (this is default for this plugin) and then suppress unwanted warnings via `-Wno-` prefix.
 
-- Flag `-fsyntax-only` gives a much faster syntax-only checking but
+- Use the `-fsyntax-only` flag in `args` gives a much faster syntax-only checking but
   [some warnings](https://github.com/SublimeLinter/SublimeLinter-gcc/issues/4)
   which are emitted in the code optimization phase would not be caught.
 
 
-Demo
-====
+## Demo
 
 ![linting_example](https://raw.githubusercontent.com/SublimeLinter/SublimeLinter-gcc/gh-pages/images/linting_example_sl4.png)
 
 
-Troubleshooting
-===============
+## Troubleshooting
 
 C/C++ linting is not always straightforward.
 A few things to try when there's (almost) no linting information available:
@@ -132,8 +126,7 @@ This will display all of the hidden flags that gcc uses.
 As a last resort, they can all be added in settings `args`.
 
 
-Contributing
-============
+## Contributing
 
 If you would like to contribute enhancements or fixes, please do the following:
 
