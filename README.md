@@ -1,5 +1,11 @@
 # SublimeLinter-gcc
 
+<a href="https://packagecontrol.io/packages/SublimeLinter-gcc"><img alt="Package Control" src="https://img.shields.io/packagecontrol/dt/SublimeLinter-gcc"></a>
+<a href="https://github.com/SublimeLinter/SublimeLinter-gcc/tags"><img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/tag/SublimeLinter/SublimeLinter-gcc?logo=github"></a>
+<a href="https://github.com/SublimeLinter/SublimeLinter-gcc/blob/master/LICENSE"><img alt="Project license" src="https://img.shields.io/github/license/SublimeLinter/SublimeLinter-gcc?logo=github"></a>
+<a href="https://github.com/SublimeLinter/SublimeLinter-gcc/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/SublimeLinter/SublimeLinter-gcc?logo=github"></a>
+<a href="https://www.paypal.me/SublimeLinter/5usd" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg?logo=paypal" /></a>
+
 This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter)
 provides an interface to [gcc](https://gcc.gnu.org/) or other gcc-like (cross-)compiler.
 It will be used with files that have the C/C++ syntax.
@@ -146,9 +152,3 @@ Please note that modifications should follow these coding guidelines:
 - Please use descriptive variable names, no abbreviations unless they are very well known.
 
 Thank you for helping out!
-
-
-Supporters <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ATXYY9Y78EQ3Y" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" /></a>
-==========
-
-Thank you guys for sending me some cups of coffee.
