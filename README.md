@@ -1,10 +1,10 @@
 # SublimeLinter-gcc
 
-<a href="https://packagecontrol.io/packages/SublimeLinter-gcc"><img alt="Package Control" src="https://img.shields.io/packagecontrol/dt/SublimeLinter-gcc"></a>
-<a href="https://github.com/SublimeLinter/SublimeLinter-gcc/tags"><img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/tag/SublimeLinter/SublimeLinter-gcc?logo=github"></a>
-<a href="https://github.com/SublimeLinter/SublimeLinter-gcc/blob/master/LICENSE"><img alt="Project license" src="https://img.shields.io/github/license/SublimeLinter/SublimeLinter-gcc?logo=github"></a>
-<a href="https://github.com/SublimeLinter/SublimeLinter-gcc/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/SublimeLinter/SublimeLinter-gcc?logo=github"></a>
-<a href="https://www.paypal.me/SublimeLinter/5usd" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg?logo=paypal" /></a>
+[![Package Control](https://img.shields.io/packagecontrol/dt/SublimeLinter-gcc)](https://packagecontrol.io/packages/SublimeLinter-gcc)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/SublimeLinter/SublimeLinter-gcc?logo=github)](https://github.com/SublimeLinter/SublimeLinter-gcc/tags)
+[![Project license](https://img.shields.io/github/license/SublimeLinter/SublimeLinter-gcc?logo=github)](https://github.com/SublimeLinter/SublimeLinter-gcc/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/SublimeLinter/SublimeLinter-gcc?logo=github)](https://github.com/SublimeLinter/SublimeLinter-gcc/stargazers)
+[![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-blue.svg?logo=paypal)](https://www.paypal.me/SublimeLinter/5usd)
 
 This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter)
 provides an interface to [gcc](https://gcc.gnu.org/) or other gcc-like (cross-)compiler.
