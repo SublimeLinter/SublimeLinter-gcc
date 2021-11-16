@@ -83,7 +83,7 @@ Here is an example settings:
         "g++": {
             "disable": false,
             "executable": ["g++"],
-            "args": ["-fsyntax-only", "-std=c++17"],
+            "args": ["-fsyntax-only", "-std=c++20"],
             "I": [
                 "${file_path}/include",
                 "${folder}/include",
@@ -104,8 +104,8 @@ Here are some useful docs for SublimeLinter settings.
 
 ## Notes
 
-- [Here](https://gcc.gnu.org/onlinedocs/gcc-10.2.0/gcc/Warning-Options.html#Warning-Options)
-  is the official list of warning options in gcc 10.2.0. I prefer turn on all warnings
+- [Here](https://gcc.gnu.org/onlinedocs/gcc-11.2.0/gcc/Warning-Options.html#Warning-Options)
+  is the official list of warning options in gcc 11.2.0. I prefer turn on all warnings
   via `-Wall` (this is default for this plugin) and then suppress unwanted warnings via `-Wno-` prefix.
 
 - Use the `-fsyntax-only` flag in `args` gives a much faster syntax-only checking but
