@@ -1,10 +1,48 @@
-[tool.black]
-line-length = 100
-target-version = ['py33']
+[tool.mypy]
+# ignore_missing_imports = False
+check_untyped_defs = true
+strict_optional = true
+mypy_path = 'typings:stubs'
+python_version = '3.8'
 
-# regex
-exclude = '''
-/(
-  \.git
-)/
-'''
+[[tool.mypy.overrides]]
+module = ["plugin.libs.*", "SublimeLinter.*"]
+ignore_errors = true
+ignore_missing_imports = true
+
+[tool.pyright]
+include = ['./']
+exclude = [
+  '**/__pycache__/',
+  '**/node_modules/',
+  # git-related
+  '**/.git/',
+  '**/br-*/',
+  '**/branch-*/',
+]
+ignore = ['**/.venv', '**/libs']
+stubPath = 'typings'
+pythonVersion = '3.8'
+
+[tool.ruff]
+preview = true
+line-length = 120
+target-version = 'py38'
+exclude = [
+  "*/libs/*",
+  ".git",
+  ".mypy_cache",
+  ".venv",
+  ".venv-*",
+  "branch-*",
+  "stubs",
+  "tests/files",
+  "typings",
+  "vendor",
+  "venv",
+  "venv-*",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP"]
+ignore = ["E203"]
