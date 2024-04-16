@@ -3,22 +3,25 @@
 # Linter for SublimeLinter4, a code checking framework for Sublime Text 3
 #
 # Written by Jack Cherng
-# Copyright (c) 2017-2019 jfcherng
+# Copyright (c) 2017-2024 jfcherng
 #
 # License: MIT
 #
 
-from SublimeLinter.lint import Linter
+from __future__ import annotations
+
 import os
 import re
+import tempfile
+
 import sublime
 import sublime_plugin
-import tempfile
+from SublimeLinter.lint import Linter
 
 OUTPUT_RE = re.compile(
     r"<stdin>:(?P<line>\d+):((?P<col>\d+):)?\s*"
-    r".*?((?P<error>error)|(?P<warning>warning|note)):\s*"
-    r"(?P<message>.+)",
+    + r".*?((?P<error>error)|(?P<warning>warning|note)):\s*"
+    + r"(?P<message>.+)",
     re.MULTILINE,
 )
 
@@ -37,7 +40,6 @@ def get_garbabge_file_path() -> str:
 
     if sublime.platform() == "windows":
         return os.path.join(tempfile.gettempdir(), "SublimeLinter-gcc.o")
-
     return "/dev/null"
 
 

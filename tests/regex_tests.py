@@ -1,20 +1,23 @@
-from collections import namedtuple
+# ruff: noqa: E501
+
+from __future__ import annotations
+
 import re
 import unittest
+from collections import namedtuple
 
 
 class RegexTests(unittest.TestCase):
-    regex = None
+    regex: re.Pattern[str] | None = None
 
     def test_cases(self):
-        for case in _cases:
-            match_list = [
-                match_tuple(**m.groupdict()) for m in re.finditer(self.regex, case.output)
-            ]
+        if not self.regex:
+            return
 
-            self.assertListEqual(
-                case.matches, match_list, "matches not as expected for case {}".format(case.name)
-            )
+        for case in _cases:
+            match_list = [match_tuple(**m.groupdict()) for m in re.finditer(self.regex, case.output)]
+
+            self.assertListEqual(case.matches, match_list, f"matches not as expected for case {case.name}")
 
 
 def run_tests(regex):
@@ -40,11 +43,7 @@ test1.h:4:1: error: unknown type name ‘SOME’
  SOME *error;
  ^
 """,
-        matches=[
-            match_tuple(
-                line="1", col=None, error="error", warning=None, message="unknown type name ‘SOME’"
-            )
-        ],
+        matches=[match_tuple(line="1", col=None, error="error", warning=None, message="unknown type name ‘SOME’")],
     )
 )
 
@@ -114,11 +113,7 @@ test1.h:4:1: error: unknown type name ‘SOME’
  SOME *error;
  ^
 """,
-        matches=[
-            match_tuple(
-                line="1", col=None, error="error", warning=None, message="unknown type name ‘SOME’"
-            )
-        ],
+        matches=[match_tuple(line="1", col=None, error="error", warning=None, message="unknown type name ‘SOME’")],
     )
 )
 
@@ -200,10 +195,6 @@ merc.h:649:4: error: unknown type name ‘time_t’
     time_t timestamp; /* Date/time player convicted or forgiven */
     ^
 """,
-        matches=[
-            match_tuple(
-                line="5", col="0", error="error", warning=None, message="unknown type name ‘time_t’"
-            )
-        ],
+        matches=[match_tuple(line="5", col="0", error="error", warning=None, message="unknown type name ‘time_t’")],
     )
 )
