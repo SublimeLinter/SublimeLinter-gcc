@@ -44,6 +44,7 @@ def get_garbabge_file_path() -> str:
 
 
 class Gcc(Linter):
+    column_unit = 'utf8'
     name = "gcc"
     cmd = "gcc ${args} -"
     regex = OUTPUT_RE
@@ -60,6 +61,7 @@ class Gcc(Linter):
 
 
 class GPlusPlus(Linter):
+    column_unit = 'utf8'
     name = "g++"
     cmd = "g++ ${args} -"
     regex = OUTPUT_RE
